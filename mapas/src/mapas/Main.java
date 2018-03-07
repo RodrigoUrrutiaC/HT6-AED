@@ -1,8 +1,7 @@
 package mapas;
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -15,6 +14,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         System.out.println("¡Bienvenido al programa de colección de cartas!");
         setMenu();
 
@@ -23,7 +24,7 @@ public class Main {
         Deck d = new Deck(tipoMapa); //llama al metodo para asignar el tipo de dato que elija el usuario
 
         d.llenarBaraja(); //llena la baraja con la informacion en el archivo.txt
-
+         
         boolean mostrarMenu = true;
         while (mostrarMenu){
             menuPrincipal();
@@ -32,8 +33,9 @@ public class Main {
                 case 1:
                     System.out.println();
                     System.out.println("Ingrese el nombre de la carta a agregar en su deck:");
-                    String metodo1= scan.next();
+                    String metodo1 = br.readLine();   
                     d.agregarCarta1(metodo1);
+                    System.out.println(d.prueba1());
                     break;
                 case 2:
                     d.tipoCarta2();
