@@ -38,7 +38,9 @@ public class Main {
                     System.out.println(d.prueba1());
                     break;
                 case 2:
-                    d.tipoCarta2();
+                    System.out.println("Ingrese el nombre de la carta de la cual quiere consultar su tipo:");
+                    String metodo2 = br.readLine();   
+                    System.out.println(d.tipoCarta2(metodo2));
                     break;
                 case 3:
                     d.deckUsuario3();
@@ -47,10 +49,10 @@ public class Main {
                     d.deckUsuarioPorTipo4();
                     break;
                 case 5:
-                    d.deck5();
+                    System.out.println(d.deck5());
                     break;
                 case 6:
-                    d.deckPorTipo6();
+                    System.out.println(d.deckPorTipo6());
                     break;
                 case 7:
                     mostrarMenu = false;
