@@ -34,8 +34,7 @@ public class Main {
                     System.out.println();
                     System.out.println("Ingrese el nombre de la carta a agregar en su deck:");
                     String metodo1 = br.readLine();   
-                    d.agregarCarta1(metodo1);
-                    System.out.println(d.prueba1());
+                    System.out.println(d.agregarCarta1(metodo1));
                     break;
                 case 2:
                     System.out.println("Ingrese el nombre de la carta de la cual quiere consultar su tipo:");
@@ -43,10 +42,10 @@ public class Main {
                     System.out.println(d.tipoCarta2(metodo2));
                     break;
                 case 3:
-                    d.deckUsuario3();
+                    System.out.println(d.deckUsuario3());
                     break;
                 case 4:
-                    d.deckUsuarioPorTipo4();
+                    System.out.println(d.deckUsuarioPorTipo4());
                     break;
                 case 5:
                     System.out.println(d.deck5());

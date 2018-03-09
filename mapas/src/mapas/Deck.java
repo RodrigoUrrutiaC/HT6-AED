@@ -14,19 +14,23 @@ import java.util.Map;
 
 public class Deck {
     Map<String, ArrayList> deck, deckUsuario;
-    ArrayList<String> monstruo,trampa,hechizo, monstruoUsuario, monstruoNum, trampaNum, hechizoNum, trampaUsuario, hechizoUsuario;
+    ArrayList<String> monstruo,trampa,hechizo, monstruoUsuario, trampaUsuario, hechizoUsuario,imprimir;
+    ArrayList<Integer> monstruoNum, trampaNum, hechizoNum;
+    
     public Deck(int tipoMapa){
         deck = new MapFactory().getMap(tipoMapa);
-        deckUsuario = new MapFactory().getMap(tipoMapa);  
+        deckUsuario = new MapFactory().getMap(tipoMapa);           
         monstruo = new ArrayList<>();
         trampa = new ArrayList<>();
         hechizo = new ArrayList<>();
         monstruoUsuario = new ArrayList<>();
-        monstruoNum = new ArrayList<>(); 
         trampaUsuario = new ArrayList<>();
-        trampaNum = new ArrayList<>(); 
-        hechizoUsuario = new ArrayList<>();
-        hechizoNum = new ArrayList<>(); 
+        hechizoUsuario = new ArrayList<>();    
+        imprimir = new ArrayList<>();    
+        monstruoNum = new ArrayList<>();    
+        trampaNum = new ArrayList<>();    
+        hechizoNum = new ArrayList<>();    
+        
     }
     
     public void llenarBaraja() throws IOException{
@@ -45,49 +49,13 @@ public class Deck {
 
             switch (tipo) {
                 case "Monstruo":
-                    if (deckUsuario.containsValue(carta)){
-                        for(int j=0;monstruo.size()>=j;j++){
-                            if (carta.equals(monstruo.get(j))){
-                                int numero = Integer.parseInt(monstruoNum.get(j));
-                                numero = numero + 1;
-                                monstruoNum.add(j,Integer.toString(numero)); 
-                            }
-                            else{
-                                monstruo.add(carta);
-                                System.out.println("Carta agregada exitosamente");
-                            }  
-                        }       
-                    }
-                    break;
-                case "Hechizo":
-                    if (deckUsuario.containsValue(carta)){
-                        for(int j=0;hechizo.size()>=j;j++){
-                            if (carta.equals(hechizo.get(j))){
-                                int numero = Integer.parseInt(hechizoNum.get(j));
-                                numero = numero + 1;
-                                hechizoNum.add(j,Integer.toString(numero)); 
-                            }
-                            else{
-                                hechizo.add(carta);
-                                System.out.println("Carta agregada exitosamente");
-                            }  
-                        }       
-                    }
+                    monstruo.add(carta);
                     break;
                 case "Trampa":
-                    if (deckUsuario.containsValue(carta)){
-                        for(int j=0;trampa.size()>=j;j++){
-                            if (carta.equals(trampa.get(j))){
-                                int numero = Integer.parseInt(trampaNum.get(j));
-                                numero = numero + 1;
-                                trampaNum.add(j,Integer.toString(numero)); 
-                            }
-                            else{
-                                trampa.add(carta);
-                                System.out.println("Carta agregada exitosamente");
-                            }  
-                        }       
-                    }
+                    trampa.add(carta);
+                    break;
+                case "Hechizo":
+                    hechizo.add(carta);
                     break;
             }
         }
@@ -100,24 +68,47 @@ public class Deck {
         deckUsuario.put("Hechizo", hechizoUsuario);
     }
 
-    public void agregarCarta1(String nombre){
+    public String agregarCarta1(String nombre){
+        int j;
         
         if(monstruo.contains(nombre)){
-            monstruoUsuario.add(nombre);
+            if(monstruoUsuario.contains(nombre)){
+                j=monstruoUsuario.indexOf(nombre);
+                monstruoNum.set(j, monstruoNum.get(j)+1);       
+            } else {
+                monstruoUsuario.add(nombre);
+                monstruoNum.add(1);
+            }
+            return "Adición exitosa";
+            
         } else if(trampa.contains(nombre)){
-            trampaUsuario.add(nombre);
+            if(trampaUsuario.contains(nombre)){
+                j=trampaUsuario.indexOf(nombre);
+                trampaNum.set(j, trampaNum.get(j)+1);       
+            } else {
+                trampaUsuario.add(nombre);
+                trampaNum.add(1);
+            }
+            return "Adición exitosa";
+            
         } else if(hechizo.contains(nombre)){
-            hechizoUsuario.add(nombre);
+            if(hechizoUsuario.contains(nombre)){
+                j=hechizoUsuario.indexOf(nombre);
+                hechizoNum.set(j, hechizoNum.get(j)+1);       
+            } else {
+                hechizoUsuario.add(nombre);
+                hechizoNum.add(1);
+            }
+            return "Adición exitosa";
         }
-        
+        else return "No se encontró la carta en la deck";
     }
     
     public String prueba1(){
-        return deckUsuario.toString();
-               
+        return deck.toString();
     }
 
-   public String tipoCarta2(String nombre){
+    public String tipoCarta2(String nombre){
 
         if(monstruo.contains(nombre)){
             return "Tipo Monstruo";
@@ -129,30 +120,61 @@ public class Deck {
     }
 
     public String deckUsuario3(){
-        return deckUsuario.toString(); 
+        imprimir.clear();
+        for(int i=0; i<monstruoUsuario.size(); i++){
+                imprimir.add("Monstruo - "+monstruoUsuario.get(i)+" - Cantidad: " 
+                        + Integer.toString(monstruoNum.get(i)));
+	} 
+        for(int i=0; i<trampaUsuario.size(); i++){
+                imprimir.add("Trampa - "+trampaUsuario.get(i)+" - Cantidad: " 
+                        + Integer.toString(trampaNum.get(i)));
+	} 
+        for(int i=0; i<hechizoUsuario.size(); i++){
+                imprimir.add("Hechizo - "+hechizoUsuario.get(i)+" - Cantidad: " 
+                        + Integer.toString(hechizoNum.get(i)));
+	} 
         
+        return imprimir.toString();
     }
 
     public String deckUsuarioPorTipo4(){
-        String monstruoA = monstruoUsuario.toString();
-        String monstruoN = monstruoNum.toString();
-        String trampaA = trampaUsuario.toString();
-        String trampaN = trampaNum.toString();
-        String hechizoA = hechizoUsuario.toString();
-        String hechizoN = hechizoNum.toString();
-        return "Hechizo: " + hechizoA + hechizoN + " Monstruo: " + monstruoA + monstruoN + " Trampa: " + trampaN + trampaA ; 
+        imprimir.clear();
+        imprimir.add("MONSTRUO:");
+        for(int i=0; i<monstruoUsuario.size(); i++){
+                imprimir.add(" "+monstruoUsuario.get(i)+" - Cantidad: " 
+                        + Integer.toString(monstruoNum.get(i)));
+	} 
+        imprimir.add("TRAMPA:");
+        for(int i=0; i<trampaUsuario.size(); i++){
+                imprimir.add(" "+trampaUsuario.get(i)+" - Cantidad: " 
+                        + Integer.toString(trampaNum.get(i)));
+	}
+        imprimir.add("HECHIZO:");
+        for(int i=0; i<hechizoUsuario.size(); i++){
+                imprimir.add(" "+hechizoUsuario.get(i)+" - Cantidad: " 
+                        + Integer.toString(hechizoNum.get(i)));
+	} 
         
+        return imprimir.toString();
     }
 
     public String deck5(){
-        return deckUsuario.toString();
+        imprimir.clear();
+        for(int i=0; i<monstruo.size(); i++){
+                imprimir.add("Monstruo - "+monstruo.get(i));
+	} 
+        for(int i=0; i<trampa.size(); i++){
+                imprimir.add("Trampa - "+trampa.get(i));
+	} 
+        for(int i=0; i<hechizo.size(); i++){
+                imprimir.add("Hechizo - "+hechizo.get(i));
+	} 
+        
+        return imprimir.toString();
     }
 
     public String deckPorTipo6(){
-        String monstruoA = monstruoUsuario.toString();
-        String trampaA = trampaUsuario.toString();
-        String hechizoA = hechizoUsuario.toString();
-        return "Hechizo: " + hechizoA + " Monstruo: " + monstruoA + " Trampa: " + trampaA ; 
+        return deck.toString();
     }
 
 }
